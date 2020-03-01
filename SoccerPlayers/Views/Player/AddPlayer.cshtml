@@ -1,0 +1,44 @@
+﻿@model SoccerPlayers.Models.Player
+@using SoccerPlayers.Enums
+@{
+    ViewData["Title"] = "AddPlayer";
+}
+
+<form asp-controller="Player" asp-action="AddPlayer" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+<div>
+    <div class="row mb-3">
+        <div class="col">
+            <input type="text" asp-for="Name" class="form-control" placeholder="Имя" required />
+        </div>
+        <div class="col">
+            <input type="text" asp-for="SecondName" class="form-control" placeholder="Фамилия" required />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <input type="date" asp-for="BirthDate" class="form-control" placeholder="Дата рождения" required />
+    </div>
+
+    <select class="form-control mb-3" asp-for="Sex" asp-items="Html.GetEnumSelectList<Sex>()"></select>
+
+    <select class="form-control mb-3" asp-for="Country" asp-items="Html.GetEnumSelectList<Countries>()"></select>
+
+    <!-- Html.EditorFor(model => model.Team.TeamName) --> <!-- Если оставить поле для ввода, то не работает выбор из select'а-->
+
+    <div class="form-group">
+        <input class="form-control mb-3" id="Team_TeamName" name="Team.TeamName" type="text" placeholder="Название команды">
+    </div>
+
+    <!-- Html.DropDownListFor(model => model.TeamId, ViewBag.Bag as SelectList, new { class = "form-control mb-3" }) -->
+
+</div>
+    <div class="row justify-content-md-center">
+        <div class="col-md-auto">
+            <button type="submit" class="btn btn-secondary">Записать</button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Player>
+@{
+    ViewData["Title"] = "Player's List";
+}
+
+<table class="table table-sm table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Имя</th>
+            <th scope="col">Фамилия</th>
+            <th scope="col">Пол</th>
+            <th scope="col">Дата рождения</th>
+            <th scope="col">Название команды</th>
+            <th scope="col">Страна</th>
+            <th scope="col">Редактирование</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Player player in Model)
+        {
+            <tr>
+                <td scope="row" class="align-middle">@Html.DisplayFor(modelPlayer => player.Name)</td>
+                <td scope="row" class="align-middle">@Html.DisplayFor(modelPlayer => player.SecondName)</td>
+                <td scope="row" class="align-middle">@Html.DisplayFor(modelPlayer => player.Sex)</td>
+                <td scope="row" class="align-middle">@Html.DisplayFor(modelPlayer => player.BirthDate)</td>
+                <td scope="row" class="align-middle">@Html.DisplayFor(modelPlayer => player.Team.TeamName)</td>
+                <td scope="row" class="align-middle">@Html.DisplayFor(modelPlayer => player.Country)</td>
+                <td class="align-baseline">
+                    <div class="btn-group" role="group">
+                        <form method="post" asp-controller="Player" asp-action="EditPlayer">
+                            <input type="hidden" name="Id" value="@player.Id" />
+                            <button type="submit" class="btn btn-success mr-1"><i class="fas fa-edit"></i></button>
+                        </form>
+                        <form method="post" asp-controller="Player" asp-action="DeletePlayer">
+                            <input type="hidden" name="Id" value="@player.TeamId" />
+                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
